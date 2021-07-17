@@ -121,10 +121,7 @@ class VacuumCleaner:
                 self.positive_y = not self.positive_y
             else:
                 self.back_track()
-        #if(self.positive_y):
-        #    print("Robot is pointing up")
-        #else:    
-        #    print("Robot is pointing down")
+        
             
 # This function helps the robot to trace back it's steps in-case it gets stuck somewhere
     def back_track(self):
@@ -149,23 +146,24 @@ class VacuumCleaner:
         self.back_cnt+=1      
         
 
-def main():
-    maxX_p = 5
-    maxY_p = 5
-    side_p = 2
-    radius_p = 1
-    cube_centre_p = [[3,3]]
-    cylinder_centre_p = []
-    positive_y_p = True
+def main():                                                           # Change the first 6 variables of this method according to your map
+    maxX_p = 15                                                       # Maximum X-Dimension of map
+    maxY_p = 20                                                       # Maximum Y-Dimension of map        
+    side_p = 4                                                        # length of side of cube 
+    radius_p = 2                                                      # radius of cylinder 
+    cube_centre_p =  [[5,5],[12,5],[9,16]]                            # List of co-ordinates of cubes 
+    cylinder_centre_p = [[4,11],[10,11],[14,19]]                      # List of co-ordinates of cylinder    
+    positive_y_p = True 
     obj=VacuumCleaner(maxX_p,maxY_p,side_p,radius_p,cube_centre_p,cylinder_centre_p,positive_y_p)
     while len(obj.grids_covered) < obj.grids_to_cover-1:
         if [obj.current_horizontal,obj.current_vertical] not in obj.grids_covered:
             obj.grids_covered.append([obj.current_horizontal,obj.current_vertical])
         obj.plan_move()
-        #print(obj.back_cnt)  
-    #print(obj.forbidden)
+         
     obj.moves.append([obj.current_horizontal,obj.current_vertical])
     obj.moves_complete.append([obj.current_horizontal,obj.current_vertical])
     print(obj.moves_complete)
         
-main()
+main()                          # The program will print a list containing all the co-ordinates of the grid that the robot has visited and in the manner it has visited
+                                # Each grid is of 1*1 unit
+                                # Bottom left corner of each grid will be the co-ordinate of that grid and co-ordinate of starting grid is [1,1]
